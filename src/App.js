@@ -9,12 +9,12 @@ export default class App extends React.Component {
     super(props)
 
     this.state = {
-      currDomElem: undefined,
+      currDomElem: undefined,  //set by default
     }
   }
 
   componentDidMount() {
-    window.addEventListener('mousedown', this.handleSelectClick)
+    window.addEventListener('mousedown', this.handleSelectClick);
   }
 
   handleSelectBehindHanler = (e) => {
@@ -36,9 +36,11 @@ export default class App extends React.Component {
   }
 
   elementFromPoint(x, y) {
-    var deHandler = ReactDOM.findDOMNode(this.refs.handler)
+    let deHandler = ReactDOM.findDOMNode(this.refs.handler);
     var deTarget
-    var get = () => deTarget = document.elementFromPoint(x, y)
+    // let get = () => deTarget = '<img src="./src/assets/obj_tv001.png" style="left: 5px; top: 5px; position: absolute; cursor: pointer;">';
+      // <img src="./src/assets/obj_tv001.png" style="left: 43px; top: 75px; position: absolute; cursor: pointer;">
+    let get = () => deTarget = document.elementFromPoint(x, y);
 
     if (deHandler) {
       let save = deHandler.style.display
@@ -80,7 +82,7 @@ export default class App extends React.Component {
   }
 
   render() {
-    var {currDomElem, grabEvent} = this.state
+    let {currDomElem, grabEvent} = this.state;
 
     if (currDomElem) {
 

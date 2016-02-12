@@ -6,6 +6,6 @@ import ReactDOM from 'react-dom'
 import scatterThings from './prepare'
 import App from './App'
 
-scatterThings()
+scatterThings();
 
 ReactDOM.render(<App/>, document.querySelector('#mount-app'))
