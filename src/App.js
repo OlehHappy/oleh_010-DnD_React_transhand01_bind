@@ -1,12 +1,12 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import {CSSTranshand} from 'transhand'
-import assign from 'lodash/assign'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import {CSSTranshand} from 'transhand';
+import assign from 'lodash/assign';
 
 export default class App extends React.Component {
 
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       currDomElem: undefined,  //set by default
@@ -52,13 +52,13 @@ export default class App extends React.Component {
       get()
     }
 
-    return deTarget
+    return deTarget;
   }
 
   handleChange = (change) => {
-    console.log('change event:', change)
+    // console.log('change event:', change)
 
-    var { currDomElem } = this.state,
+    let { currDomElem } = this.state,
         transform = currDomElem._handlerTransform
 
     assign(transform, change)
@@ -70,15 +70,15 @@ export default class App extends React.Component {
   }
 
   generateCssTransform(transform) {
-    var cssTransform = ''
+    let cssTransform = '';
 
-    cssTransform += ' translateX(' + transform.tx + 'px)'
-    cssTransform += ' translateY(' + transform.ty + 'px)'
-    cssTransform += ' rotate(' + transform.rz + 'rad)'
-    cssTransform += ' scaleX(' + transform.sx + ')'
-    cssTransform += ' scaleY(' + transform.sy + ')'
+    cssTransform += ' translateX(' + transform.tx + 'px)';
+    cssTransform += ' translateY(' + transform.ty + 'px)';
+    cssTransform += ' rotate(' + transform.rz + 'rad)';
+    cssTransform += ' scaleX(' + transform.sx + ')';
+    cssTransform += ' scaleY(' + transform.sy + ')';
 
-    return cssTransform
+    return cssTransform;
   }
 
   render() {
