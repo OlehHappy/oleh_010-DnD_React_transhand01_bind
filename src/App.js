@@ -1,7 +1,7 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {CSSTranshand} from 'transhand';
-import assign from 'lodash/assign';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import {CSSTranshand} from 'transhand'
+import assign from 'lodash/assign'
 
 export default class App extends React.Component {
 
@@ -14,14 +14,14 @@ export default class App extends React.Component {
   }
 
   componentDidMount() {
-    window.addEventListener('mousedown', this.handleSelectClick);
+    window.addEventListener('mousedown', this.handleSelectClick.bind(this)); // try to change bind
   }
 
-  handleSelectBehindHanler = (e) => {
-    this.handleSelectClick(e, true)
+  handleSelectBehindHanler(e) {
+    this.handleSelectClick(e, true).bind(this);
   }
 
-  handleSelectClick = (e, behindHandler) => {
+  handleSelectClick(e, behindHandler) {
     var domElem = this.elementFromPoint(e.clientX, e.clientY)
 
     if (domElem && domElem._handlerDemo) {
@@ -55,7 +55,7 @@ export default class App extends React.Component {
     return deTarget;
   }
 
-  handleChange = (change) => {
+  handleChange(change) {
     // console.log('change event:', change)
 
     let { currDomElem } = this.state,
@@ -83,6 +83,8 @@ export default class App extends React.Component {
 
   render() {
     let {currDomElem, grabEvent} = this.state;
+    let handleChange = this.handleChange.bind(this);
+    let handleSelectBehindHanler = this.handleSelectBehindHanler.bind(this);
 
     if (currDomElem) {
 
@@ -90,9 +92,9 @@ export default class App extends React.Component {
         ref = 'handler'
         deTarget = {currDomElem}
         transform = {currDomElem._handlerTransform}
-        onChange = {this.handleChange}
+        onChange = {handleChange}
         grabEvent = {grabEvent}
-        onClick = {this.handleSelectBehindHanler}/>
+        onClick = {handleSelectBehindHanler}/>
     }
     else {
       return <div hidden={true}/>
