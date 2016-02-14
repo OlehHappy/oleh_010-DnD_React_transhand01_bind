@@ -3,13 +3,34 @@ import ReactDOM from 'react-dom'
 import {CSSTranshand} from 'transhand'
 import assign from 'lodash/assign'
 
+function createImg(name) {
+  let rootNode = document.querySelector('#stuffs2');
+
+  let img = new Image();
+  rootNode.appendChild(img);
+  img._handlerTransform = {
+    tx: 0, ty: 0,
+    sx: 1, sy: 1,
+    rz: 0,
+    ox: 0.5, oy: 0.5,
+  };
+  img.style.left = '100px';
+  img.style.top = '150px';
+  img.style.position = 'absolute';
+  img.style.cursor = 'pointer';
+  img._handlerDemo = true;
+  img.src = `./src/assets/${name}-banner.png`; // take img src
+  console.log('we are ther');
+}
+
 export default class App extends React.Component {
 
   constructor(props) {
     super(props);
+    createImg('test7');
 
     this.state = {
-      currDomElem: undefined,  //set by default
+      currDomElem: undefined
     }
   }
 
@@ -22,7 +43,8 @@ export default class App extends React.Component {
   }
 
   handleSelectClick(e, behindHandler) {
-    var domElem = this.elementFromPoint(e.clientX, e.clientY)
+    let domElem = this.elementFromPoint(e.clientX, e.clientY)
+    // let domClass = domElem.getAttributeNode("class").value;
 
     if (domElem && domElem._handlerDemo) {
       this.setState({
@@ -38,8 +60,7 @@ export default class App extends React.Component {
   elementFromPoint(x, y) {
     let deHandler = ReactDOM.findDOMNode(this.refs.handler);
     var deTarget
-    // let get = () => deTarget = '<img src="./src/assets/obj_tv001.png" style="left: 5px; top: 5px; position: absolute; cursor: pointer;">';
-      // <img src="./src/assets/obj_tv001.png" style="left: 43px; top: 75px; position: absolute; cursor: pointer;">
+
     let get = () => deTarget = document.elementFromPoint(x, y);
 
     if (deHandler) {
@@ -85,8 +106,15 @@ export default class App extends React.Component {
     let {currDomElem, grabEvent} = this.state;
     let handleChange = this.handleChange.bind(this);
     let handleSelectBehindHanler = this.handleSelectBehindHanler.bind(this);
+    let transform = {
+      tx: 0, ty: 0,
+      sx: 1, sy: 1,
+      rz: 0,
+      ox: 0.5, oy: 0.5,
+    };
 
-    if (currDomElem) {
+    let layerBanner = function() {
+      if (currDomElem) {
 
       return <CSSTranshand
         ref = 'handler'
@@ -95,9 +123,14 @@ export default class App extends React.Component {
         onChange = {handleChange}
         grabEvent = {grabEvent}
         onClick = {handleSelectBehindHanler}/>
+      }
+      else {
+        return <div hidden={true}/>
+      }
     }
-    else {
-      return <div hidden={true}/>
-    }
+
+    return (<div>
+        {layerBanner()}
+      </div>);
   }
 }
